@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>{{ post.title }}</h1>
+    <a href="{{ url_for('users.user_posts', username=post.author.username) }}"> By: {{post.author.username}}</a>
+    <h4>Published on : {{post.timeofPost}}</h4>
+    <img align='left' src="{{ url_for('static', filename='Profile_pic/' + current_user.profile_image) }}">
+    <p>{{ post.post_text }}</p>
+
+
+    {% if post.author == current_user %}
+    <div>
+        <a class="btn btn-primary" href="{{ url_for('blogposts.update', blog_post_id=post.post_id) }}">Update </a>
+    </div>
+    {% endif %}
+
+
+
+</div>
+
+
+{% endblock %}

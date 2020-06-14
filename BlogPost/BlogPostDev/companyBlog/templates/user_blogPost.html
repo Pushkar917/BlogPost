@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="jumbotron">
+
+      <div allign="center">
+
+       <h1> "Welcome to page of "{{user.username}}"</h1>
+
+       <img allign="center" src="{{ url_for('static', filename='Profile_Pic/' + user.profile_image)}}">
+
+      </div>
+
+  </div>
+
+{% for post in blog_posts.items %}
+
+    <h2><a href="{{ url_for('blogposts.blogpost',blog_post_id=post.post_id) }}">{{post.title}}</a> </h2>
+    <h2>Wriiten by : <a href="{{ url_for('users.user_posts',username=user.username) }}"></a>{{user.username}} </h2>
+
+    <p class="text-muted">Published on: {{ post.timeofPost.strftime('%Y-%m-%d') }}</p>
+
+    <br>
+      <p>{{post.text}}</p>
+     <br>
+
+{% endfor %}
+
+</div>
+
+
+
+{% endblock %}

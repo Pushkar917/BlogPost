@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+     <div class="jumbotron">
+         <h1> Puppy Company Blog</h1>
+     </div>
+
+    <div class="banner webinar-banner text-white-80">
+         <h5> Blogs </h5>
+
+         {% for post in posts.items %}
+            <div class="card mt-3" >
+                <div class="card-body">
+                    <h2><a class="card-title" href=" {{ url_for('blogposts.blogpost', blog_post_id=post.post_id) }}">{{ post.title }}</a></h2>
+                    <a href="{{ url_for('users.user_posts', username=post.author.username) }}">Written By: {{ post.author.username }}</a>
+                    <p>Published on: {{ post.timeofPost.strftime('%Y-%m-%d') }}</p>
+                    <p class="card-text">{{ post.post_text[:100]}} ... </p>
+                    <a href="{{ url_for('blogposts.blogpost', blog_post_id=post.post_id) }}"class="btn btn-primary">Read</a>
+
+                </div>
+            </div>
+         {% endfor %}
+     </div>
+
+
+    {% for page_num in posts.iter_pages() %}
+        {% if posts.page == page_num %}
+        <li class="page-item-disabled">
+        <a class="page-link" href="{{url_for('core.index', page = page_num)}}">{{page_num}}</a>
+        </li>
+        {% else %}
+         <li class="page-item"><a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a></li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
